@@ -26,5 +26,5 @@ Xem hướng dẫn cài đặt chi tiết tại [`setup.md`](./setup.md).
 
 | # | Use Case | Mô tả | File |
 |---|----------|-------|------|
-| 1 | Credential Access | Phát hiện hành vi đánh cắp thông tin xác thực | [`usecase/credential-access.md`](./usecase/credential-access.md) |
-| 2 | Persistence | Phát hiện các kỹ thuật duy trì truy cập trái phép | [`usecase/persistence.md`](./usecase/persistence.md) |
+| 1 | Credential Access | Phát hiện hành vi đánh cắp thông tin xác thực | [`usecase/T1003.001-lsass-memory.md`](./usecase/T1003.001-lsass-memory.md) |
+| 2 | Persistence | Phát hiện các kỹ thuật duy trì truy cập trái phép | [`usecase/T1547.001-registry-run-keys.md`](./usecase/T1547.001-registry-run-keys.md) |
