@@ -10,7 +10,7 @@ Tôi sẽ sử dụng VMWare Workstation để làm phần mềm chạy các má
 
 ### Các máy ảo sử dụng 
 
-Ở đây tôi đã có chuẩn bị trước 4 máy ảo 
+Ở đây tôi đã có chuẩn bị trước các máy ảo 
 - Ubuntu Server 24.04.4: Máy này tôi sẽ tiến hành cài Wazuh
 - Windows 11 : Tôi sẽ tiến hành cài Wazuh Agent
 
