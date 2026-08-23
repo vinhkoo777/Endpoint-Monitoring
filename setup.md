@@ -14,7 +14,7 @@ Tôi sẽ sử dụng VMWare Workstation để làm phần mềm chạy các má
 - Ubuntu Server 24.04.4: Máy này tôi sẽ tiến hành cài Wazuh
 - Windows 11 : Tôi sẽ tiến hành cài Wazuh Agent
 
-Nếu được nên tạo 1 folder chứa 4 máy ảo trong đó để dễ dàng quản lí. Cách làm **chuột phải -> New Folder**.
+Nếu được nên tạo 1 folder chứa các máy ảo trong đó để dễ dàng quản lí. Cách làm **chuột phải -> New Folder**.
 
 <img width="336" height="323" alt="image" src="https://github.com/user-attachments/assets/0979b19b-7217-4346-9e85-ba32bf3347fb" />
 
