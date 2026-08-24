@@ -1,0 +1,60 @@
+<group name="sysmon,windows,sysmon_event_13,persistence,">
+
+  <rule id="40000" level="7">
+    <if_group>sysmon_eid13_detections</if_group>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKU\\\\.*\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run\\\\.*</field>
+    <description>T1547.001 - Registry Run Key Persistence - HKCU/HKU</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+
+  <rule id="40010" level="8">
+    <if_group>sysmon_eid13_detections</if_group>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\RunOnce(Ex)?\\\\.*</field>
+    <description>T1547.001 - Registry RunOnce / RunOnceEx Persistence</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+
+  <rule id="40030" level="14">
+    <if_group>sysmon_eid13_detections</if_group>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKU\\\\.*\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run\\\\socks5_powershell</field>
+    <description>T1547.001 - SystemBC-like Registry Run Key Persistence</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+
+  <rule id="40080" level="8">
+    <if_group>sysmon_eid13_detections</if_group>
+    <field name="win.eventdata.targetObject" type="pcre2">(?i)HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run\\\\.*</field>
+    <description>T1547.001 - Secedit-created HKLM Run Key Persistence</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+
+</group>
+
+<group name="sysmon,windows,sysmon_event_11,persistence,">
+  <rule id="40140" level="7">
+    <if_group>sysmon_eid11_detections</if_group>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup\\\\.+\.(bat|cmd|jse|js|vbs|vbe|lnk|exe|ps1)</field>
+    <description>T1547.001 - File Created in Common Startup Folder</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+
+  <rule id="40150" level="7">
+    <if_group>sysmon_eid11_detections</if_group>
+    <field name="win.eventdata.targetFilename" type="pcre2">(?i)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup\\\\.+\.(bat|cmd|jse|js|vbs|vbe|lnk|exe|ps1)</field>
+    <description>T1547.001 - File Created in User Startup Folder</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+
+</group>

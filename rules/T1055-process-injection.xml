@@ -1,0 +1,32 @@
+<group name="windows,sysmon,process_injection,">
+
+    <rule id="100701" level="12">
+        <if_group>sysmon_event8</if_group>
+        <field name="win.eventdata.sourceImage" type="pcre2">(?i)\\(powershell|pwsh)\.exe$</field>
+        <description>T1055 - PowerShell created a remote thread in another process</description>
+        <mitre><id>T1055</id></mitre>
+    </rule>
+
+    <rule id="100702" level="12">
+        <if_group>sysmon_event8</if_group>
+        <field name="win.system.message" type="pcre2">(?i)StartModule:\s*-</field>
+        <description>T1055 - Remote thread created with no identifiable start module</description>
+        <mitre><id>T1055</id></mitre>
+    </rule>
+
+    <rule id="100703" level="10">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\(CreateRemoteThread|CreateRemoteThreadNative|InjectView|redVanity|RWXinjectionLocal|uuid_injection)\.exe$</field>
+        <description>T1055 - Process injection utility execution detected</description>
+        <mitre><id>T1055</id></mitre>
+    </rule>
+
+    <rule id="100704" level="11">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\(powershell|pwsh)\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(CreateRemoteThread|CreateRemoteThreadNative|InjectView|redVanity|RWXinjectionLocal|uuid_injection)</field>
+        <description>T1055 - PowerShell launching process injection utility</description>
+        <mitre><id>T1055</id></mitre>
+    </rule>
+
+</group>

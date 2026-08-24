@@ -1,0 +1,39 @@
+<group name="windows,sysmon,process_discovery,">
+
+    <rule id="100901" level="6">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\tasklist\.exe$</field>
+        <description>T1057 - Process Discovery using tasklist.exe</description>
+        <mitre><id>T1057</id></mitre>
+    </rule>
+
+    <rule id="100902" level="7">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\powershell\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)\bGet-Process\b</field>
+        <description>T1057 - Process Discovery using PowerShell Get-Process</description>
+        <mitre><id>T1057</id></mitre>
+    </rule>
+
+    <rule id="100903" level="7">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)\bwmic\s+process\b</field>
+        <description>T1057 - Process Discovery using WMIC</description>
+        <mitre><id>T1057</id></mitre>
+    </rule>
+
+    <rule id="100904" level="10">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(tasklist|Get-Process).*(lsass|winlogon|explorer|csrss)</field>
+        <description>T1057 - Process Discovery targeting security-sensitive process</description>
+        <mitre><id>T1057</id></mitre>
+    </rule>
+
+    <rule id="100905" level="7">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\(PCHunter64|ProcessHacker)\.exe$</field>
+        <description>T1057 - Process discovery utility execution detected</description>
+        <mitre><id>T1057</id></mitre>
+    </rule>
+
+</group>

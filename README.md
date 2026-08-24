@@ -1,30 +1,34 @@
 # Endpoint Monitoring (Sysmon + Wazuh)
-> Made by K0g4 with love
 
-## Mục lục
-- [Giới thiệu](#giới-thiệu)
-- [Cài đặt](#cài-đặt)
-- [Use Cases](#use-cases)
-  
-## Giới thiệu
+> Lab giám sát và phát hiện hành vi tấn công trên Windows sử dụng **Sysmon**, **Wazuh**, **MITRE ATT&CK** và **Atomic Red Team**.
 
-**Endpoint Monitoring** là dự án xây dựng hệ thống phát hiện mối đe dọa (Threat Detection) trên các endpoint sử dụng **Sysmon** và **Wazuh**.
+## Tổng quan
 
-Mục tiêu chính là phát hiện những hành vi bất thường trên các endpoint trong môi trường Windows.
+Project tập trung xây dựng và kiểm thử các rule phát hiện hành vi đáng ngờ trên Windows.
 
-Tập trung vào:
-- **Thu thập log Sysmon** từ Windows client và đẩy về Wazuh Manager
-- **Xây dựng custom rules** để phát hiện hành vi độc hại
-- **Mô phỏng tấn công** (Attack Simulation) trên các endpoint
-- **Validate cảnh báo** để đảm bảo độ chính xác của detection
+* **Sysmon**: ghi nhận sự kiện trên endpoint.
+* **Wazuh**: thu thập, phân tích log và sinh cảnh báo.
+* **Atomic Red Team**: mô phỏng các kỹ thuật tấn công theo MITRE ATT&CK.
+* **Custom Rules**: phát hiện các hành vi tấn công dựa trên log Sysmon.
+
+## Các kỹ thuật đã triển khai
+
+| MITRE ATT&CK | Kỹ thuật                            | Rule                                                 |
+| ------------ | ----------------------------------- | ---------------------------------------------------- |
+| T1003.001    | OS Credential Dumping: LSASS Memory | [`XML`](./rules/T1003-001-lsass-memory.xml)          |
+| T1033        | System Owner/User Discovery         | [`XML`](./rules/T1033-user-discovery.xml)            |
+| T1053.005    | Scheduled Task/Job: Scheduled Task  | [`XML`](./rules/T1053-005-scheduled-task.xml)        |
+| T1055        | Process Injection                   | [`XML`](./rules/T1055-process-injection.xml)         |
+| T1057        | Process Discovery                   | [`XML`](./rules/T1057-process-discovery.xml)         |
+| T1059.001    | PowerShell                          | [`XML`](./rules/T1059-001-powershell.xml)            |
+| T1059.003    | Windows Command Shell               | [`XML`](./rules/T1059-003-windows-command-shell.xml) |
+| T1547.001    | Registry Run Keys / Startup Folder  | [`XML`](./rules/T1547-001-registry-run-keys.xml)     |
+
 
 ## Cài đặt
 
-Xem hướng dẫn cài đặt chi tiết tại [`setup.md`](./setup.md).
+Xem [`setup.md`](./setup.md) để cài đặt và cấu hình môi trường lab.
 
-## Use Cases
+---
 
-| # | Use Case | Mô tả | File |
-|---|----------|-------|------|
-| 1 | Credential Access | Phát hiện hành vi đánh cắp thông tin xác thực | [`usecase/T1003.001-lsass-memory.md`](./usecase/T1003.001-lsass-memory.md) |
-| 2 | Persistence | Phát hiện các kỹ thuật duy trì truy cập trái phép | [`usecase/T1547.001-registry-run-keys.md`](./usecase/T1547.001-registry-run-keys.md) |
+> Make by **K0g4** with love <333

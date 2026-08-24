@@ -1,0 +1,38 @@
+<group name="windows,sysmon,powershell,">
+
+    <rule id="100601" level="10">
+         <if_group>sysmon_event1</if_group>
+         <field name="win.eventdata.commandLine" type="pcre2">(?i)(-exec(utionpolicy)?\s+bypass|-noprofile|-nop\b|-windowstyle\s+hidden|-w\s+hidden)</field>
+         <description>T1059.001 - Suspicious PowerShell execution options</description>
+         <mitre><id>T1059.001</id></mitre>
+    </rule>
+
+    <rule id="100602" level="11">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(-encodedcommand|-enc\b|-e\s+[A-Za-z0-9+/=]{20,}|FromBase64String|EncodedArguments)</field>
+        <description>T1059.001 - PowerShell encoded or Base64 command execution</description>
+        <mitre><id>T1059.001</id></mitre>
+    </rule>
+
+    <rule id="100603" level="11">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(\bIEX\b|Invoke-Expression)</field>
+        <description>T1059.001 - PowerShell dynamic command execution</description>
+        <mitre><id>T1059.001</id></mitre>
+    </rule>
+
+    <rule id="100604" level="12">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(DownloadString|WebClient|Invoke-WebRequest|ServerXmlHttp|https?://)</field>
+        <description>T1059.001 - PowerShell remote content download detected</description>
+        <mitre><id>T1059.001</id></mitre>
+    </rule>
+
+    <rule id="100605" level="9">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(powershell|pwsh)(\.exe)?</field>
+        <description>T1059.001 - PowerShell launched through Windows command shell</description>
+        <mitre><id>T1059.001</id></mitre>
+    </rule>
+
+</group>

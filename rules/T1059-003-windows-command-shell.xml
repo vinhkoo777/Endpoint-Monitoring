@@ -1,0 +1,27 @@
+<group name="windows,sysmon,command_shell,">
+
+    <rule id="100802" level="9">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\cmd\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)\.(bat|cmd)\b</field>
+        <description>T1059.003 - Batch or CMD script executed through Windows Command Shell</description>
+        <mitre><id>T1059.003</id></mitre>
+    </rule>
+
+    <rule id="100801" level="8">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\cmd\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)\s/(c|k|r)\b</field>
+        <description>T1059.003 - Command execution using cmd.exe execution switches</description>
+        <mitre><id>T1059.003</id></mitre>
+    </rule>
+
+    <rule id="100803" level="10">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\cmd\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(powershell|pwsh|wscript|cscript|reg\.exe|schtasks\.exe|certutil\.exe|bitsadmin\.exe)</field>
+        <description>T1059.003 - Windows Command Shell launching suspicious utility</description>
+        <mitre><id>T1059.003</id></mitre>
+    </rule>
+
+</group>

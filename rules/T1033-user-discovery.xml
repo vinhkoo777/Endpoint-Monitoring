@@ -1,0 +1,49 @@
+<group name="windows,sysmon,user_discovery,">
+
+    <rule id="101001" level="6">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\whoami\.exe$</field>
+        <description>T1033 - System Owner/User Discovery using whoami.exe</description>
+        <mitre><id>T1033</id></mitre>
+    </rule>
+
+    <rule id="101002" level="8">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\whoami\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)\s/(all|priv|groups|user|logonid|fqdn|upn)\b</field>
+        <description>T1033 - Extended current user information discovery using whoami</description>
+        <mitre><id>T1033</id></mitre>
+    </rule>
+
+    <rule id="101003" level="7">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\(quser|qwinsta)\.exe$</field>
+        <description>T1033 - Logged-on user or session discovery detected</description>
+        <mitre><id>T1033</id></mitre>
+    </rule>
+
+    <rule id="101004" level="7">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\query\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)\buser\b</field>
+        <description>T1033 - Logged-on user discovery using query user</description>
+        <mitre><id>T1033</id></mitre>
+    </rule>
+
+    <rule id="101005" level="8">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\powershell\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(WindowsIdentity\]::GetCurrent|WindowsIdentity.*GetCurrent|\$env:USERNAME)</field>
+        <description>T1033 - Current user discovery using PowerShell</description>
+        <mitre><id>T1033</id></mitre>
+    </rule>
+
+    <rule id="101006" level="9">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\cmd\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(whoami.*(quser|qwinsta)|quser.*qwinsta|whoami.*query\s+user)</field>
+        <description>T1033 - Multiple user and session discovery commands executed through CMD</description>
+        <mitre><id>T1033</id></mitre>
+    </rule>
+
+</group>

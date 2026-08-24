@@ -1,0 +1,35 @@
+<group name="windows,sysmon,scheduled_task,">
+
+    <rule id="100501" level="10">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\schtasks\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(/create|/change)</field>
+        <description>T1053.005 - Scheduled Task creation/modification using schtasks.exe</description>
+        <mitre><id>T1053.005</id></mitre>
+    </rule>
+
+    <rule id="100502" level="10">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\powershell\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(New-ScheduledTask|Register-ScheduledTask|Set-ScheduledTask|New-ScheduledTaskAction|New-ScheduledTaskTrigger)</field>
+        <description>T1053.005 - Scheduled Task created or modified using PowerShell</description>
+        <mitre><id>T1053.005</id></mitre>
+    </rule>
+
+    <rule id="100503" level="8">
+        <if_group>sysmon_event_11</if_group>
+        <field name="win.eventdata.targetFilename" type="pcre2">(?i)^C:\\\\Windows\\\\System32\\\\Tasks\\\\</field>
+        <description>T1053.005 - Scheduled Task file created in Windows Task Scheduler directory</description>
+        <mitre><id>T1053.005</id></mitre>
+    </rule>
+
+    <rule id="100504" level="12">
+        <if_group>sysmon_event1</if_group>
+        <field name="win.eventdata.image" type="pcre2">(?i)\\schtasks\.exe$</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)/create</field>
+        <field name="win.eventdata.commandLine" type="pcre2">(?i)(powershell|cmd\.exe|IEX|FromBase64String|EncodedCommand|-enc)</field>
+        <description>T1053.005 - Suspicious Scheduled Task executing command interpreter or PowerShell</description>
+        <mitre><id>T1053.005</id></mitre>
+    </rule>
+
+</group>
