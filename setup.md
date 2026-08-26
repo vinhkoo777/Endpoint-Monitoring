@@ -84,7 +84,40 @@ Agent Windows sẽ xuất hiện trong danh sách endpoint của Wazuh.
 
 <img width="1909" height="963" alt="image" src="https://github.com/user-attachments/assets/8ca13099-aa4c-4f78-bf0f-1d271afdd0af" />
 
-## Phase 4: Cài đặt Atomic Red Team
+## Phase 4: Cài đặt Sysmon và thu thập log vào Wazuh
+
+[Sysmon](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon) được cài trên Windows endpoint để ghi nhận chi tiết các hoạt động như process creation, process injection, file creation và registry modification. Các sự kiện này được lưu trong Windows Event Log và được Wazuh Agent chuyển về Wazuh Server để phục vụ detection và investigation.
+
+Trên Windows, tải **Sysmon** từ Microsoft Sysinternals. Trong lab này, sử dụng cấu hình Sysmon của **SwiftOnSecurity** tại: [sysmonconfig-export.xml](https://github.com/SwiftOnSecurity/sysmon-config/blob/master/sysmonconfig-export.xml). Tải file `sysmonconfig-export.xml` và đặt trong cùng thư mục với Sysmon.
+
+Mở **PowerShell** với quyền **Administrator**, di chuyển đến thư mục chứa Sysmon và cài đặt bằng lệnh:
+
+```powershell
+.\Sysmon64.exe -accepteula -i .\sysmonconfig-export.xml
+```
+
+Để Wazuh Agent thu thập Sysmon Event Log, mở file cấu hình:
+
+```text
+C:\Program Files (x86)\ossec-agent\ossec.conf
+```
+
+Thêm cấu hình sau vào bên trong thẻ `<ossec_config>`:
+
+```xml
+<localfile>
+  <location>Microsoft-Windows-Sysmon/Operational</location>
+  <log_format>eventchannel</log_format>
+</localfile>
+```
+
+Lưu file và restart Wazuh Agent bằng PowerShell với quyền Administrator:
+
+```powershell
+Restart-Service -Name Wazuh
+```
+
+## Phase 5: Cài đặt Atomic Red Team
 
 Ở phase này, trên máy lab ta sẽ cài đặt Atomic Red Team để mô phỏng các kỹ thuật tấn công theo MITRE ATT&CK.
 
